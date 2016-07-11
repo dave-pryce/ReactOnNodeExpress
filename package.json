@@ -1,0 +1,22 @@
+{
+  "name": "expresstutorial",
+  "version": "1.0.0",
+  "description": "express tutorial",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dave-pryce/expresstutorial.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "dp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dave-pryce/expresstutorial/issues"
+  },
+  "homepage": "https://github.com/dave-pryce/expresstutorial#readme"
+}
