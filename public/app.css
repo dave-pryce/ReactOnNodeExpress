@@ -2,6 +2,7 @@
 body {
   margin : auto;
   max-width: 500px;
+  margin-top: 20px;
 }
 
 img {
@@ -11,4 +12,9 @@ img {
 
 ul {
   list-style-type: none;
+}
+
+
+input {
+  margin-bottom : 10px;
 }
