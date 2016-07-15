@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dave-pryce/expresstutorial.git"
+    "url": "git+https://github.com/dave-pryce/ReactOnNodeExpress.git"
   },
   "keywords": [
     "express"
@@ -16,7 +16,7 @@
   "author": "dp",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dave-pryce/expresstutorial/issues"
+    "url": "https://github.com/dave-pryce/ReactOnNodeExpress/issues"
   },
-  "homepage": "https://github.com/dave-pryce/expresstutorial#readme"
+  "homepage": "https://github.com/dave-pryce/ReactOnNodeExpress#readme"
 }
