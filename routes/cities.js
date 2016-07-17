@@ -4,18 +4,20 @@ var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 
 // cities object
-var cities = {
-  'Melbourne': 'Hipsters',
-  'Sydney' : 'Surfers',
-  'Brisbane' : 'Vegas',
-  'Adelaide' : 'Churches',
-};
+var cities = [
+  {id: 1, name: "Melbourne", description: "Hipsters"},
+  {id: 2, name: 'Sydney', description:  'Surfers'},
+  {id: 3, name: 'Brisbane', description: 'Vegas'},
+  {id: 4, name: 'Adelaide', description: 'Churches'},
+  {id: 5, name: 'Darwin', description: 'Hot'}
+];
+
 
 router.route('/')
 
 // get request for cities
 .get(function(request, response){
-    response.json(Object.keys(cities));
+    response.json(cities);
 })
 
 // post request for cities

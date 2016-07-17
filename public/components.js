@@ -1,15 +1,53 @@
 class CitiesBox extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showCities: false,
+      cities: []
+    };
+  }
+
+
+  componentWillMount(){
+    this._fetchCities();
+  }
+
   render() {
+    const cities = this._getCities();
     return (<div>
                 <div className="container-fluid well">
                 <h1 className="text-center">Cities App</h1>
                 <p className="text-center">React front-end / Express Node Back-end</p>
                 </div>
-
-                <CitiesList data={this.props.data}/>
+                <CitiesList/>
+                {cities}
                 <CitiesForm/>
             </div>);
   }
+
+
+  _getCities() {
+    return this.state.cities.map((city) => {
+      return (
+        <City
+        key={city.id}
+        name={city.name}
+        description={city.description}
+        />);
+    });
+  }
+
+_fetchCities(){
+  $.ajax({
+    method: 'GET',
+    url: '/cities',
+    success: (cities) => {
+      this.setState({cities});
+    }
+  })
+}
+
 }
 
 
@@ -18,9 +56,7 @@ class CitiesList extends React.Component {
     return (
           <div className="container-fluid well">
           <h3>Cities List</h3>
-          <ul>
-          <City name="Melbourne" description="Hipsters"/>
-          </ul>
+          <City/>
           </div>);
   }
 }
@@ -47,14 +83,6 @@ class CitiesForm extends React.Component {
     </div>);
   }
 }
-
-
-//var data = [
-//  {id: 1, name: "Melbourne", description: "Hipsters"},
-//  {id: 2, name: 'Sydney', description:  'Surfers'},
-//  {id: 3, name: 'Brisbane', description: 'Vegas'},
-//  {id: 4, name: 'Adelaide', description: 'Churches'
-//];
 
 
 let output = document.getElementById("cities-box");
