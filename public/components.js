@@ -38,6 +38,18 @@ class CitiesBox extends React.Component {
     });
   }
 
+
+  _addCities(cityName, cityDescription){
+    let city = {
+      name: cityName,
+      description: cityDescription
+    };
+
+    this.setSate({
+      cities: this.state.cities.concat([city])
+    });
+  }
+
 _fetchCities(){
   $.ajax({
     method: 'GET',
@@ -66,12 +78,20 @@ class CitiesForm extends React.Component {
   render() {
   return  (<div className='container-fluid well'>
     <h3>Add new City</h3>
-    <form>
-      <input name="name" placeholder="City Name" className="form-control"></input>
-      <input name="description" placeholder="City Description" className="form-control"></input>
-      <input type ="Submit" className='btn btn-default'></input>
+    <form onSubmit={this._handleSubmit.bind(this)}>
+      <input name="name" placeholder="City Name" className="form-control" ref={input => this._name = input}></input>
+      <input name="description" placeholder="City Description" className="form-control" ref={input => this._description = input}></input>
+      <button type ="Submit" className='btn btn-default'>Add City</button>
     </form>
     </div>);
+  }
+
+
+  _handleSubmit(event) {
+    event.preventDefault();
+    this.props.addCity(this._name.value, this._description.value);
+    this._name.value = '';
+    this._description.value = '';
   }
 }
 
