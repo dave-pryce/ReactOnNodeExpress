@@ -20,10 +20,9 @@ class CitiesBox extends React.Component {
                 <h1 className="text-center">Cities App</h1>
                 <p className="text-center">React front-end / Express Node Back-end</p>
                 </div>
-                <CitiesList/>
                 {cities}
                 <CitiesForm/>
-            </div>);
+                </div>);
   }
 
 
@@ -31,6 +30,7 @@ class CitiesBox extends React.Component {
     return this.state.cities.map((city) => {
       return (
         <City
+        id={city.id}
         key={city.id}
         name={city.name}
         description={city.description}
@@ -48,24 +48,15 @@ _fetchCities(){
   })
 }
 
-}
-
-
-class CitiesList extends React.Component {
-  render() {
-    return (
-          <div className="container-fluid well">
-          <h3>Cities List</h3>
-          <City/>
-          </div>);
-  }
+// end cities box
 }
 
 
 class City extends React.Component {
   render() {
-    return (<div>
-      <p>{this.props.name} {this.props.description}</p>
+    return (<div className="well well-sm">
+      <p>Name: {this.props.name}</p>
+      <p>Description: {this.props.description}</p>
     </div>);
   }
 }
