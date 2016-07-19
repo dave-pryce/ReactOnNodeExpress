@@ -30,10 +30,10 @@ class CitiesBox extends React.Component {
     return this.state.cities.map((city) => {
       return (
         <City
-        id={city.id}
         key={city.id}
         name={city.name}
         description={city.description}
+        onDelete={this._deleteCity.bind(this)}
         />);
     });
   }
@@ -62,21 +62,42 @@ _fetchCities(){
   })
 }
 
+
+
+_deleteCity(city) {
+  $.ajax({
+    method : 'DELETE',
+    url: '/cities/${city.id}'
+  });
+
+  const cities = [...this.state.cities];
+  const cityIndex = cities.indexOf(city);
+  cities.splice(cityIndex,1);
+  this.setState({ cities });
+}
+
 // end cities box
 }
 
 
 class City extends React.Component {
   render() {
-    return (<div className="panel panel-default">
+    return (
+    <div className="panel panel-default">
       <div className="panel-heading">
       <h4>{this.props.name}</h4>
       </div>
       <div className="panel-body">
       <p>{this.props.description}</p>
-      <button className="btn-link pull-right">Delete</button>
+      <button className="btn-link pull-right" onClick={this._handleDelete.bind(this)}>Delete</button>
       </div>
     </div>);
+  }
+
+
+  _handleDelete(event) {
+    event.preventDefault();
+    this.props.onDelete(this.props.comment);
   }
 }
 
