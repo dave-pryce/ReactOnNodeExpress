@@ -21,7 +21,7 @@ class CitiesBox extends React.Component {
                 <p className="text-center">React front-end / Express Node Back-end</p>
                 </div>
                 {cities}
-                <CitiesForm/>
+                <CitiesForm addCity={this._addCity.bind(this)}/>
                 </div>);
   }
 
@@ -39,13 +39,15 @@ class CitiesBox extends React.Component {
   }
 
 
-  _addCities(cityName, cityDescription){
+  _addCity(cityName, cityDescription){
     let city = {
+      // generate unqiue id
+      id: Math.floor(Math.random() * (9999 - this.state.cities.length + 1)) + this.state.cities.length,
       name: cityName,
       description: cityDescription
     };
 
-    this.setSate({
+    this.setState({
       cities: this.state.cities.concat([city])
     });
   }
