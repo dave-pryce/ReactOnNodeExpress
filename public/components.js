@@ -68,9 +68,14 @@ _fetchCities(){
 
 class City extends React.Component {
   render() {
-    return (<div className="well well-sm">
-      <p>Name: {this.props.name}</p>
-      <p>Description: {this.props.description}</p>
+    return (<div className="panel panel-default">
+      <div className="panel-heading">
+      <h4>{this.props.name}</h4>
+      </div>
+      <div className="panel-body">
+      <p>{this.props.description}</p>
+      <button className="btn-link pull-right">Delete</button>
+      </div>
     </div>);
   }
 }
@@ -82,7 +87,7 @@ class CitiesForm extends React.Component {
     <h3>Add new City</h3>
     <form onSubmit={this._handleSubmit.bind(this)}>
       <input name="name" placeholder="City Name" className="form-control" ref={input => this._name = input}></input>
-      <input name="description" placeholder="City Description" className="form-control" ref={input => this._description = input}></input>
+      <textarea name="description" placeholder="City Description" className="form-control" ref={textarea => this._description = textarea}></textarea>
       <button type ="Submit" className='btn btn-default'>Add City</button>
     </form>
     </div>);
