@@ -39,18 +39,14 @@ class CitiesBox extends React.Component {
   }
 
 
-  _addCity(cityName, cityDescription){
-    let city = {
-      // generate unqiue id
-      id: Math.floor(Math.random() * (9999 - this.state.cities.length + 1)) + this.state.cities.length,
-      name: cityName,
-      description: cityDescription
-    };
+  _addCity(name, description){
+    const city = { name, description };
 
-    this.setState({
-      cities: this.state.cities.concat([city])
-    });
-  }
+    $.post('/cities', { city })
+      .success(newCity => {
+        this.setState({cities: this.state.cities.concat([city]) });
+        });
+      }
 
 _fetchCities(){
   $.ajax({
