@@ -21,29 +21,28 @@ router.route('/')
 })
 
 // post request for cities
-.post(parseUrlencoded, function ( request, response){
+.post(parseUrlencoded, function (request, response){
   var newCity = request.body;
-  cities[newCity.name] = newCity.description;
-  response.status(201).json(newCity.name);
+  response.status(201).json(newCity);
 });
 
 
 
-//app.route('/cities/:name')
-router.route('/:name')
+//app.route('/cities/:id')
+router.route('/:id')
 // read in user param name
 .all(function(request, response, next){
-  request.cityName = (request.params.name);
+  request.cityId = (request.params.id);
   next();
 })
-// get city by name
+// get city by id
 .get(function(request, response){
-  var description = cities[request.params.name];
-  response.json(description);
+  var city = cities[request.cityId];
+  response.json(city);
 })
 // delete
-.delete(function ( request, response){
-  delete cities[request.cityName];
+.delete(function (request, response){
+  delete cities[request.cityId];
   response.sendStatus(200);
 });
 
