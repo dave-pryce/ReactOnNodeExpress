@@ -4,29 +4,32 @@ var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 
 // cities object
-var data = { "cities" : [
+var cities = [
   {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
   {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
   {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
   {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
   {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
 ]
-}
+
 
 
 router.route('/')
 
 // get request for cities
 .get(function(request, response){
-    response.json(data.cities);
+    response.json(cities);
 })
 
 // post request for cities
 .post(parseUrlencoded, function (request, response){
-  var newCity = request.body;
-  cities[newCity.name] = newCity.description;
-  console.log(newCity.name);
-  response.status(201).json(newCity.name);
+  var newCity = {
+    name: request.body.name,
+    description: request.body.description
+  };
+
+  cities.push(newCity);
+  response.status(201);
 });
 
 
@@ -42,15 +45,14 @@ router.route('/:id')
 
 // get city by id
 .get(function(request, response){
-  var city = data.cities[request.cityId];
+  var city = cities[request.cityId];
   response.json(city);
 })
 // delete
 .delete(function (request, response){
-  delete data.cities[request.cityId];
+  cities.splice(request.cityId,1);
   response.sendStatus(200);
 });
-
 
 
 module.exports = router;
