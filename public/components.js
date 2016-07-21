@@ -31,6 +31,7 @@ class CitiesBox extends React.Component {
       return (
         <City
         key={city.id}
+        city={city}
         name={city.name}
         description={city.description}
         onDelete={this._deleteCity.bind(this)}
@@ -65,9 +66,13 @@ _deleteCity(city) {
     method : 'DELETE',
     url: '/cities/${city.id}'
   });
-
   const cities = [...this.state.cities];
   const cityIndex = cities.indexOf(city);
+
+  //console.log(cityIndex);
+  //console.log(city);
+  //console.log(this.id);
+
   cities.splice(cityIndex,1);
   this.setState({ cities });
 }
