@@ -93,7 +93,7 @@ class City extends React.Component {
 
   _handleDelete(event) {
     event.preventDefault();
-    this.props.onDelete(this.props.comment);
+    this.props.onDelete(this.props.city);
   }
 }
 
