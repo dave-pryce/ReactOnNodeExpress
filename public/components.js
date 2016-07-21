@@ -41,7 +41,7 @@ class CitiesBox extends React.Component {
 
 
   _addCity(name, description){
-    const city = { name, description };
+    const city = { id: this.state.cities.length + 1, name, description };
 
     $.post('/cities', { city })
       .success(newCity => {

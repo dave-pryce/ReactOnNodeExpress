@@ -23,13 +23,17 @@ router.route('/')
 
 // post request for cities
 .post(parseUrlencoded, function (request, response){
-  var newCity = {
-    name: request.body.name,
-    description: request.body.description
-  };
-
+  var newCity = request.body;
+  //var newCity = {
+  //  id: request.body.id,
+  //  name: request.body.name,
+  //  description: request.body.description
+//  };
+//  console.log(newCity);
+  //cities[newCity.id, newCity.name, newCity.description];
+  console.log(newCity);
   cities.push(newCity);
-  response.status(201);
+  response.status(201).json(newCity);
 });
 
 
