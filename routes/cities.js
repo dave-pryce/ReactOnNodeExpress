@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var parseUrlencoded = bodyParser.urlencoded({ extended: false });
+var parseUrlencoded = bodyParser.urlencoded({ extended: true});
+//var bdyjson = bodyParser.json();
+
 
 // cities object
 var cities = [
@@ -23,17 +25,14 @@ router.route('/')
 
 // post request for cities
 .post(parseUrlencoded, function (request, response){
-  var newCity = request.body;
-  //var newCity = {
-  //  id: request.body.id,
-  //  name: request.body.name,
-  //  description: request.body.description
-//  };
-//  console.log(newCity);
-  //cities[newCity.id, newCity.name, newCity.description];
+  var newCity = {
+    id: request.body.city.id,
+    name : request.body.city.name,
+    description : request.body.city.description
+ };
   console.log(newCity);
   cities.push(newCity);
-  response.status(201).json(newCity);
+  response.status(201).json(newCity.name);
 });
 
 
