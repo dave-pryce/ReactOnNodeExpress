@@ -37,9 +37,7 @@ router.route('/')
 
 
 
-//app.route('/cities/:id')
 router.route('/:id')
-// read in user param name
 .all(function(request, response, next){
   request.cityId = (request.params.id);
   //console.log(request.cityId);
@@ -53,7 +51,9 @@ router.route('/:id')
 })
 // delete
 .delete(function (request, response){
-  cities.splice(request.cityId,1);
+  delete cities[request.cityId];
+  console.log(request.cityId);
+  //cities.splice(request.cityId,1);
   response.sendStatus(200);
 });
 
