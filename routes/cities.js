@@ -7,11 +7,11 @@ var parseUrlencoded = bodyParser.urlencoded({ extended: true});
 
 // cities object
 var cities = [
-  {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
-  {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
-  {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
-  {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
-  {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
+  {name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
+  {name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
+  {name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
+  {name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
+  {name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
 ]
 
 
@@ -26,7 +26,6 @@ router.route('/')
 // post request for cities
 .post(parseUrlencoded, function (request, response){
   var newCity = {
-    id: request.body.city.id,
     name : request.body.city.name,
     description : request.body.city.description
  };
@@ -37,25 +36,38 @@ router.route('/')
 
 
 
-router.route('/:id')
+router.route('/:name')
 .all(function(request, response, next){
-  request.cityId = (request.params.id);
+  request.cityName = request.params.name;
   //console.log(request.cityId);
   next();
 })
 
 // get city by id
 .get(function(request, response){
-  var city = cities[request.cityId];
+  var city = cities[request.cityName];
   response.json(city);
 })
+
+
 // delete
 .delete(function (request, response){
-  delete cities[request.cityId];
-  console.log(request.cityId);
-  //cities.splice(request.cityId,1);
+  console.log(request.cityName);
+  //cities.splice(request.cityName,1);
   response.sendStatus(200);
 });
+
+
+//router.route('/:name')
+//.get(function(req, res){
+
+//  if(!req.params.name){
+//    return res.send('404 Not Found');
+//  }
+
+//  var cityName = cities[req.params.name];
+//  res.json(cityName);
+//});
 
 
 module.exports = router;
