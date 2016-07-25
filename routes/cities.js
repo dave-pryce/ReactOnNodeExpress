@@ -7,11 +7,11 @@ var parseUrlencoded = bodyParser.urlencoded({ extended: true});
 
 // cities object
 var cities = [
-  {name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
-  {name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
-  {name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
-  {name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
-  {name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
+  {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
+  {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
+  {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
+  {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
+  {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
 ]
 
 
@@ -26,6 +26,7 @@ router.route('/')
 // post request for cities
 .post(parseUrlencoded, function (request, response){
   var newCity = {
+    id : request.body.city.id,
     name : request.body.city.name,
     description : request.body.city.description
  };
@@ -36,24 +37,24 @@ router.route('/')
 
 
 
-router.route('/:name')
+router.route('/:id')
 .all(function(request, response, next){
-  request.cityName = request.params.name;
+  request.cityId = request.params.id;
   //console.log(request.cityId);
   next();
 })
 
 // get city by id
 .get(function(request, response){
-  var city = cities[request.cityName];
+  var city = cities[request.cityId];
   response.json(city);
 })
 
 
 // delete
 .delete(function (request, response){
-  console.log(request.cityName);
-  //cities.splice(request.cityName,1);
+  console.log(request.cityId);
+  cities.splice(request.cityId,1);
   response.sendStatus(200);
 });
 

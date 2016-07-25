@@ -30,7 +30,7 @@ class CitiesBox extends React.Component {
     return this.state.cities.map((city) => {
       return (
         <City
-        key={city.name}
+        key={city.id}
         city={city}
         name={city.name}
         description={city.description}
@@ -61,16 +61,13 @@ _fetchCities(){
 
 
 _deleteCity(city) {
+const cities = [...this.state.cities];
+const cityIndex = cities.indexOf(city);
+
   $.ajax({
     method : 'DELETE',
-    url: '/cities/' + city.name
+    url: '/cities/' + cityIndex
   });
-  const cities = [...this.state.cities];
-  const cityIndex = cities.indexOf(city);
-
-  //console.log(cityIndex);
-  //console.log(city);
-  //console.log(this.id);
 
   cities.splice(cityIndex,1);
   this.setState({ cities });
