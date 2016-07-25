@@ -82,7 +82,7 @@ class City extends React.Component {
     return (
     <div className="panel panel-default">
       <div className="panel-heading">
-      <h4><a href='#'>{this.props.name}</a></h4>
+      <h4>{this.props.name}</h4>
       </div>
       <div className="panel-body">
       <p>{this.props.description}</p>
