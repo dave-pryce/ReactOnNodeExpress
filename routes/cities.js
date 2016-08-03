@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: true});
+var mongoUtil = require('mongoUtil');
+mongoUtil.connect();
 //var bdyjson = bodyParser.json();
-
 
 // cities object
 //var cities = [
@@ -20,12 +21,12 @@ router.route('/')
 
 // get request for cities
 .get(function(request, response){
-  var cities = mongoUtil.cities();
-  cities.find().toArray(function(err,docs){
-    var cityNames = docs.map(function(city){
-      city.name;
-    });
-    response.json(cityNames);
+//var cities = mongoUtil.cities();
+//  cities.find().toArray(function(err,docs){
+//    var cityNames = docs.map(function(city){
+//      city.name;
+  //  });
+    response.json('cityNames');
 })
 
 // post request for cities

@@ -1,12 +1,8 @@
 var express = require('express');
 var app = express();
 
-var mongoUtil = require('./mongoUtil');
-mongoUtil.connect;
-
 //serve all files in public folder
 app.use(express.static('public'));
-
 
 var cities = require('./routes/cities');
 app.use('/cities', cities);

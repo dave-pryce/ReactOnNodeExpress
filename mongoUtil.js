@@ -13,7 +13,9 @@ module.exports = {
       console.log("Connected to Mongo");
     });
   },
+
   cities(){
     return _db.collection('cities');
   }
+  
 }
