@@ -3,53 +3,17 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: true});
 
-/// connect to mongo
-var MongoClient = require('mongodb').MongoClient, assert = require('assert');
-var url = 'mongodb://localhost:27017/cities-dev';
-
-MongoClient.connect(url, function(err,db){
-  assert.equal(null, err);
-  console.log("Connected to Mongo");
-  findCities(db,function(){
-  db.close();
-  });
-});
-
-
-var findCities = function(db, callback){
-  var collection = db.collection('cities');
-
-  collection.find({}).toArray(function(err, docs){
-    assert.equal(err, null);
-    console.log("Records found");
-    console.log(docs)
-    callback(docs);
-  });
-}
-
-//var bdyjson = bodyParser.json();
-
-// cities object
-//var cities = [
-//  {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
-//  {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
-//  {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
-//  {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
-//  {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
-//]
-
-
+var mongoUtil = require('./mongoUtil');
+mongoUtil.connect();
 
 router.route('/')
 
 // get request for cities
 .get(function(request, response){
-//var cities = mongoUtil.cities();
-//  cities.find().toArray(function(err,docs){
-//    var cityNames = docs.map(function(city){
-//      city.name;
-  //  });
-    response.json('cityNames');
+  var cities = mongoUtil.cities();
+  cities.find().toArray(function(err,docs){
+  response.json(docs);
+  });
 })
 
 // post request for cities
@@ -98,6 +62,15 @@ router.route('/:id')
 //  var cityName = cities[req.params.name];
 //  res.json(cityName);
 //});
+
+// cities object
+//var cities = [
+//  {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
+//  {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
+//  {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
+//  {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
+//  {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
+//]
 
 
 module.exports = router;

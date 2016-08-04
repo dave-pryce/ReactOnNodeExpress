@@ -30,7 +30,7 @@ class CitiesBox extends React.Component {
     return this.state.cities.map((city) => {
       return (
         <City
-        key={city.id}
+        key={city._id}
         city={city}
         name={city.name}
         description={city.description}
