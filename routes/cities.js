@@ -2,8 +2,31 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: true});
-var mongoUtil = require('mongoUtil');
-mongoUtil.connect();
+
+/// connect to mongo
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var url = 'mongodb://localhost:27017/cities-dev';
+
+MongoClient.connect(url, function(err,db){
+  assert.equal(null, err);
+  console.log("Connected to Mongo");
+  findCities(db,function(){
+  db.close();
+  });
+});
+
+
+var findCities = function(db, callback){
+  var collection = db.collection('cities');
+
+  collection.find({}).toArray(function(err, docs){
+    assert.equal(err, null);
+    console.log("Records found");
+    console.log(docs)
+    callback(docs);
+  });
+}
+
 //var bdyjson = bodyParser.json();
 
 // cities object
