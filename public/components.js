@@ -63,10 +63,11 @@ _fetchCities(){
 _deleteCity(city) {
 const cities = [...this.state.cities];
 const cityIndex = cities.indexOf(city);
+const cityid = city._id;
 
   $.ajax({
     method : 'DELETE',
-    url: '/cities/' + cityIndex
+    url: '/cities/' + cityid
   });
 
   cities.splice(cityIndex,1);

@@ -8,7 +8,7 @@ mongoUtil.connect();
 
 router.route('/')
 
-// get request for cities
+// get request for cities from mongo
 .get(function(request, response){
   var cities = mongoUtil.cities();
   cities.find().toArray(function(err,docs){
@@ -16,61 +16,45 @@ router.route('/')
   });
 })
 
+
 // post request for cities
 .post(parseUrlencoded, function (request, response){
-  var newCity = {
-    id : request.body.city.id,
+  var newCity = mongoUtil.cities();
+  newCity.insert({
     name : request.body.city.name,
     description : request.body.city.description
- };
-  console.log(newCity);
-  cities.push(newCity);
-  response.status(201).json(newCity.name);
+  });
+  //console.log(newCity);
+  //response.status(201).json(newCity.name);
 });
 
 
 
-router.route('/:id')
+router.route('/:_id')
 .all(function(request, response, next){
-  request.cityId = request.params.id;
+  request.cityId = request.params._id;
   //console.log(request.cityId);
   next();
 })
 
 // get city by id
 .get(function(request, response){
-  var city = cities[request.cityId];
-  response.json(city);
+  var city = mongoUtil.cities();
+  city.find({_id : ObjectId(request.cityId)}).toArray(function(err,docs){
+  response.json(docs);
+  });
 })
 
 
 // delete
 .delete(function (request, response){
-  console.log(request.cityId);
-  cities.splice(request.cityId,1);
+  var city = mongoUtil.cities();
+  city.remove({"_id" : request.cityId})
   response.sendStatus(200);
 });
 
 
-//router.route('/:name')
-//.get(function(req, res){
 
-//  if(!req.params.name){
-//    return res.send('404 Not Found');
-//  }
-
-//  var cityName = cities[req.params.name];
-//  res.json(cityName);
-//});
-
-// cities object
-//var cities = [
-//  {id: 1, name: "Melbourne", description: "Hipsters are here, there and everywhere. Food and coffee is good."},
-//  {id: 2, name: 'Sydney', description:  'City Surfers, bad traffic, A cool bridge and an Opera House.'},
-//  {id: 3, name: 'Brisbane', description: 'Vegas, River ferries and Cat, the Gabba and warm winters.'},
-//  {id: 4, name: 'Adelaide', description: 'Churches, cycling, becoming foody and cool. Radalaide.'},
-//  {id: 5, name: 'Darwin', description: 'Hot and sticky, crocs and stingers.'}
-//]
 
 
 module.exports = router;
