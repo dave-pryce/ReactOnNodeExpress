@@ -27,7 +27,7 @@ router.route('/')
     description : request.body.city.description
   });
   //console.log(newCity);
-  //response.status(201).json(newCity.name);
+  response.sendStatus(201).json(newCity.name);
 });
 
 
