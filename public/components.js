@@ -43,7 +43,7 @@ class CitiesBox extends React.Component {
 
 
   _addCity(name, description){
-    const city = { id: Math.floor(Math.random() * (9999 - this.state.cities.length + 1)) + this.state.cities.length, name, description };
+    const city = {name, description};
     $.post('/cities', { city })
       .success(newCity => {
         this.setState({cities: this.state.cities.concat([city]) });
@@ -65,11 +65,12 @@ _fetchCities(){
 _deleteCity(city) {
 const cities = [...this.state.cities];
 const cityIndex = cities.indexOf(city);
-const cityid = city._id;
+//const cityid = city._id;
+const cityName = city.name
 
   $.ajax({
     method : 'DELETE',
-    url: '/cities/' + cityid
+    url: '/cities/' + cityName
   });
 
   cities.splice(cityIndex,1);

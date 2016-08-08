@@ -6,6 +6,8 @@ var parseUrlencoded = bodyParser.urlencoded({ extended: true});
 var mongoUtil = require('./mongoUtil');
 mongoUtil.connect();
 
+
+
 router.route('/')
 
 // get request for cities from mongo
@@ -30,17 +32,20 @@ router.route('/')
 
 
 
-router.route('/:_id')
+//router.route('/:_id')
+router.route('/:name')
 .all(function(request, response, next){
-  request.cityId = request.params._id;
+  request.name = request.params.name;
+  //request.cityId = request.params._id;
   next();
 })
 
 // get city by id
 .get(function(request, response){
   var city = mongoUtil.cities();
-  var obj_id = new ObjectID(request.params._id);
-  city.find({"_id" :obj_id}).toArray(function(err,docs){
+  //var obj_id = new ObjectID(request.params._id);
+  //city.find({"_id" :obj_id}).toArray(function(err,docs){
+  city.find({"name" : request.name}).toArray(function(err,docs){
   response.json(docs);
   });
 })
@@ -48,9 +53,10 @@ router.route('/:_id')
 
 // delete
 .delete(function (request, response){
-  //var city = mongoUtil.cities();
-  //city.remove({"_id" : ObjectId(request.cityId)});
-  //response.sendStatus(200);
+  var city = mongoUtil.cities();
+  city.remove({"name" : request.name});
+  response.sendStatus(200);
+//});
 });
 
 
