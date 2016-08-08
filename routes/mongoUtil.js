@@ -2,6 +2,7 @@ var mongo = require('mongodb')
 var client = mongo.MongoClient;
 var _db;
 var url = 'mongodb://localhost:27017/cities-dev';
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
   connect() {

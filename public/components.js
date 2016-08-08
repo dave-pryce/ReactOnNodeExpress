@@ -18,7 +18,9 @@ class CitiesBox extends React.Component {
     return (<div>
                 <div className="container-fluid well">
                 <h1 className="text-center">Cities App</h1>
-                <p className="text-center">React front-end / Express Node Back-end</p>
+                <p className="text-center">React front-end</p>
+                <p className="text-center">Node - Express Back-end</p>
+                <p className="text-center">Mongo DataBase</p>
                 </div>
                 {cities}
                 <CitiesForm addCity={this._addCity.bind(this)}/>

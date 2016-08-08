@@ -33,14 +33,14 @@ router.route('/')
 router.route('/:_id')
 .all(function(request, response, next){
   request.cityId = request.params._id;
-  //console.log(request.cityId);
   next();
 })
 
 // get city by id
 .get(function(request, response){
   var city = mongoUtil.cities();
-  city.find({_id : ObjectId(request.cityId)}).toArray(function(err,docs){
+  var obj_id = new ObjectID(request.params._id);
+  city.find({"_id" :obj_id}).toArray(function(err,docs){
   response.json(docs);
   });
 })
@@ -48,9 +48,9 @@ router.route('/:_id')
 
 // delete
 .delete(function (request, response){
-  var city = mongoUtil.cities();
-  city.remove({"_id" : request.cityId})
-  response.sendStatus(200);
+  //var city = mongoUtil.cities();
+  //city.remove({"_id" : ObjectId(request.cityId)});
+  //response.sendStatus(200);
 });
 
 
